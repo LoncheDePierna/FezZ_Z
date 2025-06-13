@@ -3,13 +3,19 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    public GameObject prefab;
+    public GameObject wallPrefab;
     private GameObject currentInstance;
 
-    public bool noFaceFront;
-    public bool noFaceLeft;
-    public bool noFaceRight;
-    public bool noFaceBack;
+    public GameObject floorPrefab;
+    private GameObject floorInstance;
+
+    public bool FaceFront;
+    public bool FaceLeft;
+    public bool FaceRight;
+    public bool FaceBack;
+
+    [Space(20)]
+    public bool noFloor;
 
     private void OnEnable()
     {
@@ -33,17 +39,23 @@ public class Block : MonoBehaviour
             Destroy(currentInstance);
         }
 
-        currentInstance.gameObject.SetActive(true);
-        currentInstance = Instantiate(prefab, transform);
+        currentInstance = Instantiate(wallPrefab, transform);
+        floorInstance = Instantiate(floorPrefab, transform);
+
+        floorInstance.transform.localPosition = new Vector3(0f,0.4f,0f);
         currentInstance.transform.localPosition = GetLocalPosition(face);
         currentInstance.transform.localRotation = Quaternion.Euler(GetLocalRotation(face));
 
-        if ((face == GameManager.Face.Front && noFaceFront) ||
-            (face == GameManager.Face.Left && noFaceLeft) ||
-            (face == GameManager.Face.Right && noFaceRight) ||
-            (face == GameManager.Face.Back && noFaceBack))
+        if ((face == GameManager.Face.Front && !FaceFront) ||
+            (face == GameManager.Face.Left && !FaceLeft) ||
+            (face == GameManager.Face.Right && !FaceRight) ||
+            (face == GameManager.Face.Back && !FaceBack))
         {
             currentInstance.gameObject.SetActive(false);
+        }
+        if (noFloor)
+        {
+            floorInstance.gameObject.SetActive(false);
         }
     }
 
