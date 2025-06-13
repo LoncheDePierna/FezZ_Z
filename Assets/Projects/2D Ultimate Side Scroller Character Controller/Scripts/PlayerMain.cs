@@ -28,6 +28,8 @@ namespace UltimateCC
             Rigidbody2D = GetComponent<Rigidbody2D>();
             InputManager = GetComponent<PlayerInputManager>();
             CapsuleCollider2D = GetComponent<CapsuleCollider2D>();
+            
+            Rigidbody2D.freezeRotation = true;
 
             // In this section, we assign all states
             _stateMachine = new PlayerStateMachine();
