@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9129681612113939018}
   - component: {fileID: 3915198298733929639}
   - component: {fileID: 1641546176013036373}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground_Grass_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,11 +122,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac4b146c53755c48a39abf358ff6052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5148268298038379145, guid: f270e5b4cb3a1234c9567b9a9b16a92a, type: 3}
+  wallPrefab: {fileID: 2962840718243625918, guid: f270e5b4cb3a1234c9567b9a9b16a92a, type: 3}
+  floorPrefabF: {fileID: 8029756451859553916, guid: eea7d2ef26dc2614b9af395fbb07eee6, type: 3}
+  floorPrefabS: {fileID: 6898558965397677496, guid: c191bd76be187474985dadd685b23a98, type: 3}
   FaceFront: 1
   FaceLeft: 1
   FaceRight: 1
   FaceBack: 1
+  noFloor: 0
 --- !u!54 &1641546176013036373
 Rigidbody:
   m_ObjectHideFlags: 0

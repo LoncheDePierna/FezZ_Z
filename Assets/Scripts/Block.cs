@@ -6,8 +6,10 @@ public class Block : MonoBehaviour
     public GameObject wallPrefab;
     private GameObject currentInstance;
 
-    public GameObject floorPrefab;
-    private GameObject floorInstance;
+    public GameObject floorPrefabF;
+    public GameObject floorPrefabS;
+    private GameObject floorInstanceF;
+    private GameObject floorInstanceS;
 
     public bool FaceFront;
     public bool FaceLeft;
@@ -37,14 +39,33 @@ public class Block : MonoBehaviour
         if (currentInstance != null)
         {
             Destroy(currentInstance);
+            Destroy(floorInstanceF);
+            Destroy(floorInstanceS);
         }
 
         currentInstance = Instantiate(wallPrefab, transform);
-        floorInstance = Instantiate(floorPrefab, transform);
 
-        floorInstance.transform.localPosition = new Vector3(0f,0.4f,0f);
+        floorInstanceF = Instantiate(floorPrefabF, transform);
+        floorInstanceF.transform.localPosition = new Vector3(0f,0.32f,0f);
+
+        floorInstanceS = Instantiate(floorPrefabS, transform);
+        floorInstanceS.transform.localPosition = new Vector3(0f, 0.32f, 0f);
+
         currentInstance.transform.localPosition = GetLocalPosition(face);
         currentInstance.transform.localRotation = Quaternion.Euler(GetLocalRotation(face));
+
+        if ((face == GameManager.Face.Front) ||
+            (face == GameManager.Face.Back))
+        {
+            floorInstanceF.gameObject.SetActive(true);
+            floorInstanceS.gameObject.SetActive(false);
+        }
+        if ((face == GameManager.Face.Left) ||
+            (face == GameManager.Face.Right))
+        {
+            floorInstanceF.gameObject.SetActive(false);
+            floorInstanceS.gameObject.SetActive(true);
+        }
 
         if ((face == GameManager.Face.Front && !FaceFront) ||
             (face == GameManager.Face.Left && !FaceLeft) ||
@@ -55,7 +76,8 @@ public class Block : MonoBehaviour
         }
         if (noFloor)
         {
-            floorInstance.gameObject.SetActive(false);
+            floorInstanceF.gameObject.SetActive(false);
+            floorInstanceS.gameObject.SetActive(false);
         }
     }
 
@@ -64,7 +86,7 @@ public class Block : MonoBehaviour
         switch (face)
         {
             case GameManager.Face.Front:
-                return new Vector3(0.2f, 0.2f, 0f);
+                return new Vector3(0f, 0.2f, 0f);
             case GameManager.Face.Left:
                 return new Vector3(0f, 0.2f, -0.2f);
             case GameManager.Face.Right:
