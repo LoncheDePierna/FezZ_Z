@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 2962840718243625918, guid: f270e5b4cb3a1234c9567b9a9b16a92a, type: 3}
-  floorPrefabF: {fileID: 8029756451859553916, guid: eea7d2ef26dc2614b9af395fbb07eee6, type: 3}
-  floorPrefabS: {fileID: 6898558965397677496, guid: c191bd76be187474985dadd685b23a98, type: 3}
+  floorPrefabF: {fileID: 6898558965397677496, guid: c191bd76be187474985dadd685b23a98, type: 3}
+  floorPrefabS: {fileID: 8029756451859553916, guid: eea7d2ef26dc2614b9af395fbb07eee6, type: 3}
   FaceFront: 1
   FaceLeft: 1
   FaceRight: 1
