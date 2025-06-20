@@ -23,6 +23,15 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        GameManager.Instance.onRotate += RotatePlayer;
+
+        RotatePlayer(GameManager.Instance.currentFace);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.onRotate -= RotatePlayer;
     }
 
     void Update()
@@ -73,5 +82,15 @@ public class PlayerController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
+    }
+
+    private void RotatePlayer(GameManager.Face face)
+    {
+        if (face == GameManager.Face.Front) transform.localRotation = Quaternion.Euler(0f, -90f, 0f);
+        if (face == GameManager.Face.Left) transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        if (face == GameManager.Face.Right) transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+        if (face == GameManager.Face.Back) transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+
+        
     }
 }

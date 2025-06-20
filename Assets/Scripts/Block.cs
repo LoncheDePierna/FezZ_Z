@@ -11,18 +11,19 @@ public class Block : MonoBehaviour
     private GameObject floorInstanceF;
     private GameObject floorInstanceS;
 
-    public bool faceFront;
-    public bool faceLeft;
-    public bool faceRight;
-    public bool faceBack;
-
+    [Header("Floor")]
     public bool floorFront;
     public bool floorLeft;
     public bool floorRight;
     public bool floorBack;
 
-    [Space(20)]
-    public bool noFloor;
+
+    [Space(10), Header("Walls")]
+    public bool faceFront;
+    public bool faceLeft;
+    public bool faceRight;
+    public bool faceBack;
+
     private void OnDisable()
     {
         GameManager.Instance.onRotate -= HandleRotation;

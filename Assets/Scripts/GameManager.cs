@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Face currentFace = Face.Front;
 
     public GameObject map;
+    public GameObject player;
 
     public event Action<Face> onRotate;
 

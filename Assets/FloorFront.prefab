@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5378765808225787543}
   - component: {fileID: 7498398606699811781}
   - component: {fileID: 1972135662535569205}
+  - component: {fileID: 7289037516830160281}
   m_Layer: 3
   m_Name: FloorFront
   m_TagString: Untagged
@@ -150,7 +151,19 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 1
-  m_SurfaceArc: 180
+  m_SurfaceArc: 179
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &7289037516830160281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8029756451859553916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e4204fcc7bdad4793369d8ebdccee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
