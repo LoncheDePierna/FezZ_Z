@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         GameManager.Instance.onRotate += RotatePlayer;
-
         RotatePlayer(GameManager.Instance.currentFace);
     }
 
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviour
         // Entrada de movimiento
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        // Detecci�n de suelo
+        // Detección de suelo
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         if (isGrounded)
@@ -50,8 +49,9 @@ public class PlayerController : MonoBehaviour
         // Saltar / Doble salto
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // reset vertical
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset vertical
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetInteger("JumpIndex", jumpCount == 0 ? 0 : 1); // 0 = salto, 1 = extra salto
             jumpCount++;
         }
 
@@ -60,7 +60,13 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("VerticalVelocity", rb.linearVelocity.y);
 
-        // Flip visual (si es sprite, usa scale.x)
+        // Reset JumpIndex cuando cae
+        if (isGrounded && rb.linearVelocity.y <= 0.1f)
+        {
+            animator.SetInteger("JumpIndex", -1); // -1 indica que no está en salto
+        }
+
+        // Flip visual
         if (horizontalInput != 0)
         {
             Vector3 scale = transform.localScale;
@@ -90,7 +96,5 @@ public class PlayerController : MonoBehaviour
         if (face == GameManager.Face.Left) transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         if (face == GameManager.Face.Right) transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
         if (face == GameManager.Face.Back) transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
-
-        
     }
 }
