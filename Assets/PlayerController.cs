@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            jumpCount = 0;
+            jumpCount = -1;
         }
 
         // Saltar / Doble salto
@@ -51,8 +51,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset vertical
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetInteger("JumpIndex", jumpCount == 0 ? 0 : 1); // 0 = salto, 1 = extra salto
             jumpCount++;
+            animator.SetInteger("JumpIndex", jumpCount); // 0 = salto, 1 = extra salto
         }
 
         // Animaciones

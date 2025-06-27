@@ -4614,6 +4614,7 @@ MonoBehaviour:
   currentFace: 0
   map: {fileID: 790756147}
   player: {fileID: 3213259106291871369}
+  frontOffset: -10
 --- !u!1 &1029995220
 GameObject:
   m_ObjectHideFlags: 0
