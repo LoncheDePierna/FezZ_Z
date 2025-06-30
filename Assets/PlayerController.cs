@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private int jumpCount;
     private bool isGrounded;
     private float horizontalInput;
+    private GameObject meshObject;
 
     void Start()
     {
@@ -26,6 +27,15 @@ public class PlayerController : MonoBehaviour
 
         GameManager.Instance.onRotate += RotatePlayer;
         RotatePlayer(GameManager.Instance.currentFace);
+
+        if (transform.childCount > 0)
+        {
+            meshObject = transform.GetChild(0).gameObject;
+        }
+        else
+        {
+            Debug.LogWarning("Este objeto no tiene hijos, no se puede asignar meshObject.");
+        }
     }
 
     private void OnDisable()
@@ -41,18 +51,24 @@ public class PlayerController : MonoBehaviour
         // Detección de suelo
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        if (isGrounded)
+        if (isGrounded && rb.linearVelocity.y <= 0.1f)
         {
-            jumpCount = -1;
+            jumpCount = 0;
+            animator.SetInteger("JumpIndex", -1); // También aquí colocas la animación de en suelo
         }
 
         // Saltar / Doble salto
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Reset vertical
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            jumpCount++;
-            animator.SetInteger("JumpIndex", jumpCount); // 0 = salto, 1 = extra salto
+            
+            if (jumpCount == 0)
+                animator.SetInteger("JumpIndex", 0); // Salto inicial
+            else if (jumpCount == 1)
+                animator.SetInteger("JumpIndex", 1); // Doble salto
+
+            jumpCount++; // Se incrementa al final
         }
 
         // Animaciones
@@ -60,18 +76,18 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("VerticalVelocity", rb.linearVelocity.y);
 
-        // Reset JumpIndex cuando cae
-        if (isGrounded && rb.linearVelocity.y <= 0.1f)
+        // Rotación visual en eje Y
+        if (horizontalInput > 0)
         {
-            animator.SetInteger("JumpIndex", -1); // -1 indica que no está en salto
+            meshObject.transform.localRotation = Quaternion.Euler(-90f, 0f, 120f); // Mira a la derecha
         }
-
-        // Flip visual
-        if (horizontalInput != 0)
+        else if (horizontalInput < 0)
         {
-            Vector3 scale = transform.localScale;
-            scale.x = Mathf.Sign(horizontalInput) * Mathf.Abs(scale.x);
-            transform.localScale = scale;
+            meshObject.transform.localRotation = Quaternion.Euler(-90f, 0f, 240f); // Mira a la izquierda
+        }
+        else
+        {
+            meshObject.transform.localRotation = Quaternion.Euler(-90f, 0f, 180f); // Mira hacia el frente
         }
     }
 
