@@ -2,42 +2,29 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    private bool isInFloor = false;
-
-    private void OnDisable()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameManager.Instance.onRotate -= MovePlayerToFloor;
-    }
+        if (!collision.gameObject.CompareTag("Player")) return;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        GameManager.Instance.onRotate += MovePlayerToFloor;
+        Transform player = GameManager.Instance.player.transform;
+        Vector3 playerPos = player.position;
+        Vector3 floorPos = transform.position;
 
-        MovePlayerToFloor(GameManager.Instance.currentFace);
-    }
-
-    private void MovePlayerToFloor(GameManager.Face face)
-    {
-        if (isInFloor)
+        switch (GameManager.Instance.currentFace)
         {
-        Debug.Log("Se tepio");
-        GameManager.Instance.player.transform.position = transform.position + new Vector3(0f, 0f, 0f);
+            case GameManager.Face.Front:
+            case GameManager.Face.Back:
+                // Alinear eje X
+                playerPos.z = floorPos.z;
+                break;
 
-        //Vector3 currentPosition = GameManager.Instance.player.transform.position;
-        //currentPosition.x = 1.5f;
-        //GameManager.Instance.player.transform.position = currentPosition;
+            case GameManager.Face.Left:
+            case GameManager.Face.Right:
+                // Alinear eje Z
+                playerPos.z = floorPos.z;
+                break;
         }
-    }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player")) isInFloor = true;
-        Debug.Log("Entro");
-    }
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player")) isInFloor = false;
-        Debug.Log("Salio");
+        player.position = playerPos;
     }
 }

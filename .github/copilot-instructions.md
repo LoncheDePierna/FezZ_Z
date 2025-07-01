@@ -4,11 +4,11 @@
 - Active scene:
   - Name: Game
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Floor
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Floor, Water, UI
 - Active game object:
-  - Name: Game Manager
+  - Name: Ground_Grass_D (14)
   - Tag: Untagged
-  - Layer: Default
+  - Layer: Floor
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
