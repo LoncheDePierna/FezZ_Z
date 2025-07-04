@@ -9,6 +9,7 @@ public class Coins : MonoBehaviour
     private bool isWinning = false;
 
     [SerializeField] private float delayBeforeWin = 4f;
+    [SerializeField] private int coinsToWin = 5;
     private static readonly string WIN_TRIGGER = "Win";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,7 +38,7 @@ public class Coins : MonoBehaviour
         }
 
         // Verificar condición de victoria
-        if (!isWinning && gameManager != null && gameManager.coins >= 1)
+        if (!isWinning && gameManager != null && gameManager.coins >= coinsToWin)
         {
             StartWinSequence();
         }

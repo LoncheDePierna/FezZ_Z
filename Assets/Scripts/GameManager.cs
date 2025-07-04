@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public int lives;
     public bool asKey;
     private bool isPaused;
-    private bool canRotate = true;
+    public bool canRotate = true;
 
     public event Action<Face> onRotate;
 
@@ -123,22 +123,36 @@ public class GameManager : MonoBehaviour
     {
         if (map != null)
         {
-            map.transform.Rotate(0, -90f, 0);
-        }
+            // Mover al jugador al centro del bloque antes de rotar
+            if (player != null)
+            {
+                Vector3 playerPos = player.transform.position;
+                playerPos.z += 1f; // Compensar el -1 moviéndolo al centro
+                player.transform.position = playerPos;
+            }
 
-        currentFace = (Face)(((int)currentFace + 1) % 4);
-        onRotate?.Invoke(currentFace);
+            map.transform.Rotate(0, -90f, 0);
+            currentFace = (Face)(((int)currentFace + 1) % 4);
+            onRotate?.Invoke(currentFace);
+        }
     }
 
     public void RotateRight()
     {
         if (map != null)
         {
-            map.transform.Rotate(0, 90f, 0);
-        }
+            // Mover al jugador al centro del bloque antes de rotar
+            if (player != null)
+            {
+                Vector3 playerPos = player.transform.position;
+                playerPos.z += 1f; // Compensar el -1 moviéndolo al centro
+                player.transform.position = playerPos;
+            }
 
-        currentFace = (Face)(((int)currentFace + 3) % 4); // +3 equivale a -1 en modulo 4
-        onRotate?.Invoke(currentFace);
+            map.transform.Rotate(0, 90f, 0);
+            currentFace = (Face)(((int)currentFace + 3) % 4); // +3 equivale a -1 en modulo 4
+            onRotate?.Invoke(currentFace);
+        }
     }
 
     // Método público para ser llamado desde botones UI

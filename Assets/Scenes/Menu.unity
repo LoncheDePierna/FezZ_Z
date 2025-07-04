@@ -2324,6 +2324,7 @@ MonoBehaviour:
   coins: 0
   lives: 0
   asKey: 0
+  canRotate: 1
 --- !u!1 &1068661302
 GameObject:
   m_ObjectHideFlags: 0
@@ -9708,7 +9709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1950361813
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10287,7 +10288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128226662
 RectTransform:
   m_ObjectHideFlags: 0

@@ -14,14 +14,14 @@ public class Floor : MonoBehaviour
         {
             case GameManager.Face.Front:
             case GameManager.Face.Back:
-                // Alinear eje X
-                playerPos.z = floorPos.z;
+                // Alinear eje X y sumar 1 al eje Z
+                playerPos.z = floorPos.z - 1f;
                 break;
 
             case GameManager.Face.Left:
             case GameManager.Face.Right:
-                // Alinear eje Z
-                playerPos.z = floorPos.z;
+                // Alinear eje Z y sumar 1
+                playerPos.z = floorPos.z - 1f;
                 break;
         }
 
